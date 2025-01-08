@@ -8,7 +8,7 @@ class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("PyQt 示例")
-        self.setGeometry(100, 100, 600, 400)
+        self.setGeometry(100, 100, 1200, 700)
 
         # 创建主窗口布局
         main_splitter = QSplitter(Qt.Orientation.Horizontal)
