@@ -1,7 +1,7 @@
 from PyQt6.QtWidgets import QMainWindow, QSplitter
 from PyQt6.QtCore import Qt
-from windows.left_widget import create_left_widget
-from windows.right_widget import create_right_splitter
+from windows.left.left_widget import create_left_widget
+from windows.right.right_widget import create_right_splitter
 
 
 class MainWindow(QMainWindow):

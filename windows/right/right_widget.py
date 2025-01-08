@@ -1,7 +1,7 @@
-from PyQt6.QtWidgets import QSplitter, QLabel
+from PyQt6.QtWidgets import QSplitter
 from PyQt6.QtCore import Qt
-from windows.bottom_widget import create_bottom_widget
-from windows.top_widget import create_top_widget
+from windows.right.bottom.bottom_widget import create_bottom_widget
+from windows.right.top.top_widget import create_top_widget
 
 
 def create_right_splitter(parent):
