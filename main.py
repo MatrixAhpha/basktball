@@ -1,8 +1,9 @@
 import sys
 from PyQt6.QtWidgets import QApplication
 
+from process_message import process_message
 from websocket_manager import WebSocketManager
-from windows.MainWindow import MainWindow, process_message
+from windows.MainWindow import MainWindow
 
 # 主程序入口
 if __name__ == "__main__":
