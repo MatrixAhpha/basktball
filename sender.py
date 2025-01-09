@@ -1,11 +1,14 @@
 import json
-
 import pandas as pd
 import time
+import asyncio
+import websockets
 
 # 读取 Excel 文件
 file_path = "event_stream.xlsx"
 data = pd.read_excel(file_path, header=None)
+
+connected_clients = set()
 
 
 def diff(time1, time2):
@@ -24,9 +27,9 @@ def diff(time1, time2):
         raise ValueError("时间格式不正确，请确保格式为 MM:SS:000000")
 
 
-def send_col(raw_data):
+async def send_col(raw_data):
     """
-    将原始字符串解析为 JSON 格式，仅保留前 4 个键值对，并打印
+    将原始字符串解析为 JSON 格式，仅保留前 4 个键值对，并广播
     """
     # 将字符串按行分割
     lines = raw_data.strip().split('\n')
@@ -44,12 +47,16 @@ def send_col(raw_data):
     # 保留前 4 个键值对
     limited_dict = dict(list(data_dict.items())[:4])
 
-    # 转换为 JSON 格式并输出
+    # 转换为 JSON 格式
     json_str = json.dumps(limited_dict, ensure_ascii=False, indent=4)
+
     print(json_str)
+    # 向所有客户端广播
+    if connected_clients:
+        await asyncio.gather(*(client.send(json_str) for client in connected_clients))
 
 
-def read_stream():
+async def read_stream():
     # 遍历表格内容
     i = 0
     while i + 1 < len(data):
@@ -62,11 +69,11 @@ def read_stream():
 
         # 检测阶段开始标志
         if first_col.startswith("第") and first_col.endswith("节"):
-            send_col(str(data.iloc[i]).strip())
+            await send_col(str(data.iloc[i]).strip())
             i += 1
-            send_col(str(data.iloc[i]).strip())
+            await send_col(str(data.iloc[i]).strip())
             i += 1
-            send_col(str(data.iloc[i]).strip())
+            await send_col(str(data.iloc[i]).strip())
 
         # 检测阶段结束标志
         if next_col.startswith("第"):
@@ -77,14 +84,29 @@ def read_stream():
         else:
             current_time = str(data.iloc[i][0])
             next_time = str(data.iloc[i + 1][0])
-            time.sleep(diff(current_time, next_time) / 50)
+            await asyncio.sleep(diff(current_time, next_time) / 50)
             # 打印下一行内容
-            send_col(str(data.iloc[i + 1]).strip())
+            await send_col(str(data.iloc[i + 1]).strip())
 
         i += 1
 
 
-if __name__ == "__main__":
-    while 1:
-        read_stream()
+async def websocket_handler(websocket):
+    # 客户端连接处理
+    connected_clients.add(websocket)
+    try:
+        await websocket.wait_closed()
+    finally:
+        connected_clients.remove(websocket)
 
+
+async def main():
+    # 启动 WebSocket 服务器
+    server = await websockets.serve(websocket_handler, "localhost", 6789)
+    # 启动数据流读取任务
+    while True:
+        await read_stream()
+
+
+if __name__ == "__main__":
+    asyncio.run(main())
