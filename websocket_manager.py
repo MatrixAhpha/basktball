@@ -34,6 +34,6 @@ class WebSocketManager(QObject):
 
     def on_message_received(self, message):
         """处理接收到的消息"""
-        print(f"收到消息: {message}")
+        # print(f"收到消息: {message}")
         self.message_received.emit(message)
 

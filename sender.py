@@ -84,7 +84,7 @@ async def read_stream():
         else:
             current_time = str(data.iloc[i][0])
             next_time = str(data.iloc[i + 1][0])
-            await asyncio.sleep(diff(current_time, next_time) / 50)
+            await asyncio.sleep(diff(current_time, next_time) / 3)
             # 打印下一行内容
             await send_col(str(data.iloc[i + 1]).strip())
 
