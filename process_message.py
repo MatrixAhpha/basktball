@@ -16,8 +16,6 @@ def process_message(message, window):
         msg1 = message_dict.get(key2, None)
         score = message_dict.get(key3, None)
         msg2 = message_dict.get(key4, None)
-
-        window.main_event_manager.foul.emit()
         print(time, msg1, score, msg2)
 
     except json.JSONDecodeError:
