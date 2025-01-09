@@ -50,7 +50,7 @@ async def send_col(raw_data):
     # 转换为 JSON 格式
     json_str = json.dumps(limited_dict, ensure_ascii=False, indent=4)
 
-    print(json_str)
+    # print(json_str)
     # 向所有客户端广播
     if connected_clients:
         await asyncio.gather(*(client.send(json_str) for client in connected_clients))
@@ -93,10 +93,18 @@ async def read_stream():
 
 async def websocket_handler(websocket):
     # 客户端连接处理
+    client_address = websocket.remote_address
+    print(f"新客户端尝试连接: {client_address}")
+
     connected_clients.add(websocket)
+    print(f"客户端已连接: {client_address}")
+
     try:
         await websocket.wait_closed()
+    except Exception as e:
+        print(f"客户端 {client_address} 连接中出现错误: {e}")
     finally:
+        print(f"客户端断开连接: {client_address}")
         connected_clients.remove(websocket)
 
 

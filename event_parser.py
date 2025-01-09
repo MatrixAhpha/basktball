@@ -4,7 +4,7 @@ import json
 import websockets
 
 
-def process_message(message,event_manager):
+def process_message(message, event_manager):
     """
     处理接收到的 JSON 消息，将其解析为键值对变量
     """
@@ -36,7 +36,7 @@ async def connect_to_server(event_manager):
                 try:
                     # 等待接收消息
                     message = await websocket.recv()
-                    process_message(message,event_manager)
+                    process_message(message, event_manager)
                 except websockets.ConnectionClosed:
                     print("连接已关闭")
                     break
@@ -46,6 +46,7 @@ async def connect_to_server(event_manager):
 
 def main(event_manager):
     asyncio.run(connect_to_server(event_manager))
+
 
 if __name__ == "__main__":
     main(None)
