@@ -15,5 +15,5 @@ if __name__ == "__main__":
     websocket_manager.connect()  # 启动 WebSocket 连接
     window = MainWindow()
     window.show()
-    websocket_manager.message_received.connect(lambda msg: process_message(msg, window, match))
+    websocket_manager.message_received.connect(lambda msg: process_message(msg, match))
     sys.exit(app.exec())
