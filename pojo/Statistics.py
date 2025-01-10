@@ -24,12 +24,15 @@ class Statistics:
 
     def add_three_points(self):
         self.three_points += 3
+        self.event_manager.three_points.emit()
 
     def add_foul(self):
         self.fouls += 1
+        self.event_manager.foul.emit()
 
     def add_block(self):
         self.blocks += 1
+        self.event_manager.block.emit()
 
     def add_rebound(self):
         self.rebounds += 1
