@@ -13,6 +13,8 @@ def create_right_splitter(parent):
     bottom_widget = create_bottom_widget(parent)
     right_splitter.addWidget(bottom_widget)
 
-    right_splitter.setStretchFactor(0, 3)  # 上部分控件比例 3
-    right_splitter.setStretchFactor(1, 2)  # 下部分控件比例 2
+    right_splitter.setStretchFactor(0, 20)  # 上部分控件比例 3
+    right_splitter.setStretchFactor(1, 1)  # 下部分控件比例 2
+
+    parent.event_managers["bottom"] = bottom_widget.event_manager
     return right_splitter

@@ -58,7 +58,7 @@ def process_message(message):
             print(msg2)
         match = MatchSingleton.get_instance()
         print(match)
-
+        match.window.event_managers["bottom"].update.emit()
 
     except json.JSONDecodeError:
         print("接收到的消息不是有效的 JSON 格式:", message)
