@@ -54,8 +54,6 @@ def addup(time, msg1, score, msg2):
             c_home_score, c_away_score = map(int, score.split("-"))
         except ValueError:
             raise ValueError("Invalid score format, expected 'int:int'.\nscore:{}".format(msg1))
-        # 更新比赛比分和时间
-        match.score = (c_home_score, c_away_score)
         # 判断事件
         if "命中" in msg:
             if c_away_score + c_home_score - match.score[0] - match.score[1] == 2:
@@ -68,6 +66,8 @@ def addup(time, msg1, score, msg2):
             team_stats.add_block()
         elif "篮板" in msg:
             team_stats.add_rebound()
+        # 更新比赛比分和时间
+        match.score = (c_home_score, c_away_score)
     match.time = time
 
 

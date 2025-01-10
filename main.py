@@ -15,6 +15,6 @@ if __name__ == "__main__":
     window = MainWindow()
     window.show()
     match = MatchSingleton.get_instance()
-    # match.set_window(window)
+    match.set_window(window)
     websocket_manager.message_received.connect(lambda msg: process_message(msg))
     sys.exit(app.exec())

@@ -40,3 +40,5 @@ class Match:
 
     def set_window(self, window):
         self.window = window
+        self.home_team_stats.set_event_manager(window.main_event_manager)
+        self.away_team_stats.set_event_manager(window.sub_event_manager)
