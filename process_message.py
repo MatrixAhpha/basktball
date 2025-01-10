@@ -1,41 +1,6 @@
 import json
-from enum import Enum
 
 from match_singleton import MatchSingleton
-
-
-class Event(Enum):
-    FOUL = "犯规"
-    TWO_POINTS = "2分进球"
-    THREE_POINTS = "3分进球"
-    FREE_THROW = "罚球"
-    BLOCK = "盖帽"
-    OUT_OF_BOUNDS = "球出界"
-
-
-class Team(Enum):
-    HOME = "主队"
-    AWAY = "客队"
-
-
-class BallPossession(Enum):
-    HOME = "主队"
-    AWAY = "客队"
-
-
-def update_team_stats(team, event):
-    if event == Event.TWO_POINTS:
-        team.two_points += 2
-    elif event == Event.THREE_POINTS:
-        team.three_points += 3
-    elif event == Event.FREE_THROW:
-        team.free_throws += 1
-    elif event == Event.FOUL:
-        team.fouls += 1
-    elif event == Event.BLOCK:
-        team.blocks += 1
-    elif event == Event.OUT_OF_BOUNDS:
-        team.out_of_bounds += 1
 
 
 def addup(time, msg1, score, msg2):
@@ -93,6 +58,7 @@ def process_message(message):
             print(msg2)
         match = MatchSingleton.get_instance()
         print(match)
+
 
     except json.JSONDecodeError:
         print("接收到的消息不是有效的 JSON 格式:", message)
