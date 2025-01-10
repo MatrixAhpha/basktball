@@ -1,6 +1,8 @@
 import json
 from enum import Enum
 
+from match_singleton import MatchSingleton
+
 
 class Event(Enum):
     FOUL = "犯规"
@@ -36,40 +38,40 @@ def update_team_stats(team, event):
         team.out_of_bounds += 1
 
 
-def addup(time, msg1, score, msg2, match):
+def addup(time, msg1, score, msg2):
     """
     处理接收到的 JSON 消息，将其解析为键值对变量
     """
+    match = MatchSingleton.get_instance()
     if msg1 == "NaN":
         team_stats = match.away_team_stats
         msg = msg2
     else:
         team_stats = match.home_team_stats
         msg = msg1
-    try:
-        c_home_score, c_away_score = map(int, score.split("-"))
-    except ValueError:
-        raise ValueError("Invalid score format, expected 'int:int'.")
-
-    # 判断事件
-    if "命中" in msg:
-        if c_away_score + c_home_score - match.score[0] - match.score[1] == 2:
-            team_stats.add_two_points()
-        else:
-            team_stats.add_three_points()
-    elif "犯规" in msg:
-        team_stats.add_foul()
-    elif "封盖" in msg:
-        team_stats.add_block()
-    elif "篮板" in msg:
-        team_stats.add_rebound()
-
-    # 更新比赛比分和时间
-    match.score = (c_home_score, c_away_score)
+    if score != "NaN":
+        try:
+            c_home_score, c_away_score = map(int, score.split("-"))
+        except ValueError:
+            raise ValueError("Invalid score format, expected 'int:int'.\nscore:{}".format(msg1))
+        # 更新比赛比分和时间
+        match.score = (c_home_score, c_away_score)
+        # 判断事件
+        if "命中" in msg:
+            if c_away_score + c_home_score - match.score[0] - match.score[1] == 2:
+                team_stats.add_two_points()
+            else:
+                team_stats.add_three_points()
+        elif "犯规" in msg:
+            team_stats.add_foul()
+        elif "封盖" in msg:
+            team_stats.add_block()
+        elif "篮板" in msg:
+            team_stats.add_rebound()
     match.time = time
 
 
-def process_message(message, match):
+def process_message(message):
     """
     处理接收到的 JSON 消息，将其解析为键值对变量
     """
@@ -84,11 +86,12 @@ def process_message(message, match):
         msg1 = message_dict.get(key2, None)
         score = message_dict.get(key3, None)
         msg2 = message_dict.get(key4, None)
-        addup(time, msg1, score, msg2, match)
+        addup(time, msg1, score, msg2)
         if msg1 != "NaN":
             print(msg1)
         if msg2 != "NaN":
             print(msg2)
+        match = MatchSingleton.get_instance()
         print(match)
 
     except json.JSONDecodeError:

@@ -15,6 +15,7 @@ class Statistics:
                 f"犯规数: {self.fouls}, 盖帽数: {self.blocks}, 篮板数: {self.rebounds}")
 
     def add_two_points(self):
+
         self.two_points += 2
 
     def add_three_points(self):

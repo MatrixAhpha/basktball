@@ -1,12 +1,11 @@
 import sys
 from PyQt6.QtWidgets import QApplication
 
-from pojo.Match import Match
+from match_singleton import MatchSingleton
 from process_message import process_message
 from websocket_manager import WebSocketManager
 from windows.MainWindow import MainWindow
 
-match = Match(None, None)
 
 # 主程序入口
 if __name__ == "__main__":
@@ -15,5 +14,7 @@ if __name__ == "__main__":
     websocket_manager.connect()  # 启动 WebSocket 连接
     window = MainWindow()
     window.show()
-    websocket_manager.message_received.connect(lambda msg: process_message(msg, match))
+    match = MatchSingleton.get_instance()
+    # match.set_window(window)
+    websocket_manager.message_received.connect(lambda msg: process_message(msg))
     sys.exit(app.exec())
