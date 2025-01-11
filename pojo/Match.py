@@ -33,8 +33,8 @@ class Match:
         """
         self.home_team = home_team
         self.away_team = away_team
-        self.home_team_icon = f"assets/{home_team}.jpg"
-        self.away_team_icon = f"assets/{away_team}.jpg"
+        self.home_team_icon = f"assets/{home_team}.png"
+        self.away_team_icon = f"assets/{away_team}.png"
 
     def __str__(self):
         return (f"比赛时间: {self.time}, 比分: {self.score}\n"
