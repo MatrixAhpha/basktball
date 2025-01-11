@@ -1,6 +1,6 @@
 from PyQt6.QtWidgets import QLabel
 
-from pojo.Statistics import Statistics
+from pojo.Team_Statistics import Team_Statistics
 
 
 class Match:
@@ -21,8 +21,8 @@ class Match:
         self.score = current_score  # 当前比分 (主队:客队)
 
         # 主队和客队技术统计
-        self.home_team_stats = Statistics()
-        self.away_team_stats = Statistics()
+        self.home_team_stats = Team_Statistics()
+        self.away_team_stats = Team_Statistics()
 
         self.quarter = quarter
         self.new_event = None
