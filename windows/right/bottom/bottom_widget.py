@@ -22,21 +22,25 @@ def create_bottom_widget(parent):
 
     # 创建 QLabel 并添加到表格
     labels = {
+        "quarter": create_label(match.quarter, alignment=Qt.AlignmentFlag.AlignCenter),
         "time": create_label(match.time, alignment=Qt.AlignmentFlag.AlignCenter),
         "score": create_label(f"{match.score[0]} - {match.score[1]}", alignment=Qt.AlignmentFlag.AlignCenter),
         "home_team": create_label(match.home_team, alignment=Qt.AlignmentFlag.AlignCenter),
         "away_team": create_label(match.away_team, alignment=Qt.AlignmentFlag.AlignCenter),
         "home_team_stats": create_label(str(match.home_team_stats), alignment=Qt.AlignmentFlag.AlignCenter),
         "away_team_stats": create_label(str(match.away_team_stats), alignment=Qt.AlignmentFlag.AlignCenter),
+        "new_event": create_label(match.new_event, alignment=Qt.AlignmentFlag.AlignCenter),
     }
 
     # 添加组件到布局
-    grid_layout.addWidget(labels["time"], 0, 0, 1, 2)  # 第一行，跨2列
-    grid_layout.addWidget(labels["score"], 1, 0, 1, 2)  # 第二行，跨2列
-    grid_layout.addWidget(labels["home_team"], 2, 0)  # 第三行左侧
-    grid_layout.addWidget(labels["away_team"], 2, 1)  # 第三行右侧
-    grid_layout.addWidget(labels["home_team_stats"], 3, 0)  # 第四行左侧
-    grid_layout.addWidget(labels["away_team_stats"], 3, 1)  # 第四行右侧
+    grid_layout.addWidget(labels["quarter"], 0, 0, 1, 2)  # 第一行，跨2列
+    grid_layout.addWidget(labels["time"], 1, 0, 1, 2)  # 第二行，跨2列
+    grid_layout.addWidget(labels["score"], 2, 0, 1, 2)  # 第三行，跨2列
+    grid_layout.addWidget(labels["home_team"], 3, 0)  # 第四行左侧
+    grid_layout.addWidget(labels["away_team"], 3, 1)  # 第四行右侧
+    grid_layout.addWidget(labels["home_team_stats"], 4, 0)  # 第五行左侧
+    grid_layout.addWidget(labels["away_team_stats"], 4, 1)  # 第五行右侧
+    grid_layout.addWidget(labels["new_event"], 5, 0, 1, 2)  # 最后一行，跨2列
 
     # 创建事件管理器并连接更新信号
     bottom_widget.event_manager = bottomEventManager()
@@ -63,12 +67,14 @@ def update_bottom_widget(labels):
     """
     match = MatchSingleton.get_instance()
     updated_data = {
+        "quarter": match.quarter,
         "time": match.time,
         "score": f"{match.score[0]} - {match.score[1]}",
         "home_team": match.home_team,
         "away_team": match.away_team,
         "home_team_stats": str(match.home_team_stats),
         "away_team_stats": str(match.away_team_stats),
+        "new_event": match.new_event,
     }
 
     for key, new_text in updated_data.items():

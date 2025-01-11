@@ -23,6 +23,7 @@ class Match:
         self.away_team_stats = Statistics()
 
         self.quarter = quarter
+        self.new_event = None
 
     def update_teams(self, home_team, away_team):
         """
@@ -39,7 +40,8 @@ class Match:
                 f"主队: {self.home_team}, 图标: {self.home_team_icon}\n"
                 f"客队: {self.away_team}, 图标: {self.away_team_icon}\n"
                 f"主队技术统计: {self.home_team_stats}\n"
-                f"客队技术统计: {self.away_team_stats}")
+                f"客队技术统计: {self.away_team_stats}"
+                f"最新事件: {self.new_event}")
 
     def set_window(self, window):
         self.window = window

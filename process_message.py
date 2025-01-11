@@ -53,18 +53,20 @@ def process_message(message):
         msg1 = message_dict.get(key2, None)
         score = message_dict.get(key3, None)
         msg2 = message_dict.get(key4, None)
+
         if re.match(r"^\d+-\d+$", score):
+            if msg1 != "NaN":
+                msg = msg1
+            else:
+                msg = msg2
             addup(time, msg1, score, msg2)
+            match.new_event = msg
         elif time == "时间":
             match.update_teams(msg1, msg2)
         elif re.match(r"^第[1-4]节$", time):
             match.set_quarter(time)
-        if msg1 != "NaN":
-            print(msg1)
-        if msg2 != "NaN":
-            print(msg2)
-        print(match)
 
+        print(match)
         match.window.event_managers["bottom"].update.emit()
 
     except json.JSONDecodeError:
