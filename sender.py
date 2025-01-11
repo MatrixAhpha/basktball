@@ -28,7 +28,8 @@ def diff(time1, time2):
 
 def to_json(raw_data):
     """
-    将原始字符串解析为 JSON 格式，仅保留前 4 个键值对，并广播
+    将原始字符串解析为 JSON 格式，仅保留前 4 个键值对。
+    如果第一个键值对的值为 aa:bb:cc 格式，仅保留 aa:bb。
     """
     # 将字符串按行分割
     lines = raw_data.strip().split('\n')
@@ -41,6 +42,13 @@ def to_json(raw_data):
             key, value = parts
         else:
             key, value = parts[0], None
+
+        # 检查第一个键值对的值是否为 aa:bb:cc 格式
+        if len(data_dict) == 0 and value and ':' in value:
+            time_parts = value.split(':')
+            if len(time_parts) == 3:
+                value = ':'.join(time_parts[:2])  # 保留前两部分
+
         data_dict[key] = value
 
     # 保留前 4 个键值对
