@@ -2,6 +2,8 @@ from PyQt6.QtCore import QObject, pyqtSignal
 from PyQt6.QtWebSockets import QWebSocket
 from PyQt6.QtCore import QUrl
 
+from match_singleton import MatchSingleton
+
 
 class WebSocketManager(QObject):
     message_received = pyqtSignal(str)  # 信号：接收到消息
@@ -28,6 +30,8 @@ class WebSocketManager(QObject):
             raise ValueError("URL 列表不能为空")
 
     def connect(self):
+        match = MatchSingleton.get_instance()
+        match.clear()
         """建立 WebSocket 连接"""
         print(f"正在连接到 {self.current_url}...")
         self.websocket.open(self.current_url)

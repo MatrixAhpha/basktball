@@ -34,3 +34,12 @@ class Team_Statistics(Statistics):
 
     def add_rebound(self):
         self.rebounds += 1
+
+    def clear(self):
+        self.two_points = 0
+        self.three_points = 0
+        self.fouls = 0
+        self.blocks = 0
+        self.rebounds = 0
+        self.player_statistics = {}
+

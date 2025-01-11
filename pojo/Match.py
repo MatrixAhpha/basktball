@@ -58,3 +58,18 @@ class Match:
             return self.home_team_icon
         elif court == self.window.findChild(QLabel, "sub_court"):
             return self.away_team_icon
+
+    def clear(self):
+        """
+        重置比赛的所有数据。
+        """
+        self.home_team = ""
+        self.away_team = ""
+        self.home_team_icon = ""
+        self.away_team_icon = ""
+        self.time = "00:00"
+        self.score = (0, 0)
+        self.quarter = "第1节"
+        self.new_event = None
+        self.home_team_stats.clear()  # 重置主队技术统计
+        self.away_team_stats.clear()  # 重置客队技术统计
