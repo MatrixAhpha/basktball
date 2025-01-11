@@ -1,5 +1,4 @@
 import sys
-
 from PyQt6.QtCore import QTimer
 from PyQt6.QtWidgets import QApplication
 
@@ -12,12 +11,22 @@ from windows.MainWindow import MainWindow
 
 # 主程序入口
 if __name__ == "__main__":
+    # 检查是否有传入参数
+    if len(sys.argv) < 2:
+        print("用法: python script.py <url1> <url2> ...")
+        sys.exit(1)
+
+    # 从命令行参数创建 URL 集合
+    urls = list(set(sys.argv[1:]))  # 去重并转换为列表
+    print(f"接收到的 URL 集合: {urls}")
+
     app = QApplication(sys.argv)
 
-    websocket_manager = WebSocketManager("ws://localhost:6789", "ws://localhost:6790")
+    # 初始化 WebSocketManager，传入第一个和第二个 URL
+    websocket_manager = WebSocketManager(urls)
     websocket_manager.connect()  # 启动 WebSocket 连接
 
-    window = MainWindow()
+    window = MainWindow(urls)
     window.websocket_manager = websocket_manager
     window.show()
 

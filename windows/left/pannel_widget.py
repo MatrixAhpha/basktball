@@ -4,7 +4,7 @@ from PyQt6.QtGui import QMouseEvent
 
 
 class Panel(QFrame):
-    def __init__(self, title, parent=None, url = None):
+    def __init__(self, title, parent=None, url=None):
         super().__init__(parent)
         self.setFrameShape(QFrame.Shape.StyledPanel)
         self.setFrameShadow(QFrame.Shadow.Raised)
@@ -15,7 +15,7 @@ class Panel(QFrame):
         self.layout.addWidget(self.label)
 
         self.setLayout(self.layout)
-        self.setStyleSheet("background-color: lightgray; border-radius: 5px;")
+        self.setStyleSheet("background-color: lightblue; border-radius: 5px;")
 
         self.url = url
 

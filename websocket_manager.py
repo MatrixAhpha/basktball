@@ -5,20 +5,27 @@ from PyQt6.QtCore import QUrl
 
 class WebSocketManager(QObject):
     message_received = pyqtSignal(str)  # 信号：接收到消息
-    connected = pyqtSignal()           # 信号：连接成功
-    disconnected = pyqtSignal()        # 信号：连接断开
+    connected = pyqtSignal()  # 信号：连接成功
+    disconnected = pyqtSignal()  # 信号：连接断开
 
-    def __init__(self, url1, url2):
+    def __init__(self, urls):
+        """
+        初始化 WebSocketManager
+
+        :param urls: 一个包含字符串类型 URL 的列表
+        """
         super().__init__()
         self.websocket = QWebSocket()
-        self.url1 = QUrl(url1)
-        self.url2 = QUrl(url2)
-        self.current_url = self.url1
+        self.urls = [QUrl(url) for url in urls]  # 将字符串 URL 转换为 QUrl 对象
+        self.current_index = 0  # 当前连接的 URL 索引
+        self.current_url = self.urls[self.current_index] if self.urls else None
 
         self.websocket.connected.connect(self.on_connected)
         self.websocket.disconnected.connect(self.on_disconnected)
         self.websocket.textMessageReceived.connect(self.on_message_received)
 
+        if not self.urls:
+            raise ValueError("URL 列表不能为空")
 
     def connect(self):
         """建立 WebSocket 连接"""
@@ -40,9 +47,16 @@ class WebSocketManager(QObject):
         self.message_received.emit(message)
 
     def on_change(self, url):
+        """
+        切换连接到指定的 URL
+
+        :param url: 要切换的目标 URL (字符串)
+        """
         new_url = QUrl(url)  # 将字符串类型的 URL 转换为 QUrl 对象
-        if new_url != self.current_url:
+        if new_url != self.current_url and new_url in self.urls:
             self.current_url = new_url
-            print("切换连接中...")
+            print(f"切换连接到新的 URL: {self.current_url}")
             self.websocket.close()  # 关闭当前连接
             self.connect()  # 建立新连接
+        elif new_url not in self.urls:
+            print(f"错误: 指定的 URL 不在初始化时提供的列表中: {url}")
