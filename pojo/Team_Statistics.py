@@ -11,6 +11,7 @@ class Team_Statistics(Statistics):
         super().__init__(two_points, three_points, fouls, blocks, rebounds)
         # 初始化事件管理器
         self.event_manager = None
+        self.player_statistics = {}
 
     def set_event_manager(self, event_manager):
         self.event_manager = event_manager
