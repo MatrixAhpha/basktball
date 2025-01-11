@@ -23,7 +23,7 @@ def addup(time, msg1, score, msg2):
 
     name = msg.split(" ", 1)
 
-    if name[0] in match.home_team or name[0] in match.away_team or name[0] == "跳球":
+    if name[0] in match.home_team or name[0] in match.away_team or "跳球" in name[0] or "换人" in name[0]:
         is_name = False
     else:
         is_name = True
