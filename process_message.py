@@ -90,10 +90,10 @@ def process_message(message):
         elif re.match(r"^第[1-4]节$", time):
             match.set_quarter(time)
 
-        for player_name, statistics in match.home_team_stats.player_statistics.items():
-            print(f"Player: {player_name}")
-            print(statistics)
-            print("-" * 30)  # 分隔线，便于阅读
+        # for player_name, statistics in match.home_team_stats.player_statistics.items():
+        #     print(f"Player: {player_name}")
+        #     print(statistics)
+        #     print("-" * 30)  # 分隔线，便于阅读
 
         match.window.event_managers["bottom"].update.emit()
 
