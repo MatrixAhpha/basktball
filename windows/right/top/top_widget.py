@@ -1,7 +1,6 @@
 from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import QSplitter
-from windows.right.top.court import create_court
-from windows.right.top.court_event_manager import CourtEventManager
+from windows.right.top.court import create_court, CourtEventManager
 
 
 def create_top_widget(parent):
