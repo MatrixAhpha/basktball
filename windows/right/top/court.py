@@ -1,8 +1,9 @@
 from PyQt6.QtCore import Qt, QTimer
 from PyQt6.QtWidgets import QLabel, QDialog, QVBoxLayout, QPushButton
-from match_singleton import MatchSingleton
+
 from PyQt6.QtCore import QObject, pyqtSignal
 
+from pojo.Match import MatchSingleton
 from windows.right.top.popup_window import PopupWindow
 
 
@@ -65,12 +66,12 @@ def create_court(parent, event_manager, court_name):
 
     # 绑定事件信号到响应函数
     event_manager.possession.connect(lambda: change_background(court, "white", persistent=True))
-    event_manager.foul.connect(lambda: change_background(court, "red", 1000))
-    event_manager.two_points.connect(lambda: change_background(court, "lightgreen", 1000))
-    event_manager.three_points.connect(lambda: change_background(court, "darkgreen", 1000))
-    event_manager.free_throw.connect(lambda: change_background(court, "lightblue", 1000))
-    event_manager.block.connect(lambda: change_background(court, "blue", 1000))
-    event_manager.out_of_bounds.connect(lambda: change_background(court, "yellow", 1000))
+    event_manager.foul.connect(lambda: change_background(court, "red", 500))
+    event_manager.two_points.connect(lambda: change_background(court, "lightgreen", 500))
+    event_manager.three_points.connect(lambda: change_background(court, "darkgreen", 500))
+    event_manager.free_throw.connect(lambda: change_background(court, "lightblue", 500))
+    event_manager.block.connect(lambda: change_background(court, "blue", 500))
+    event_manager.out_of_bounds.connect(lambda: change_background(court, "yellow", 500))
     event_manager.update.connect(lambda: reset_background(court))
 
     return court

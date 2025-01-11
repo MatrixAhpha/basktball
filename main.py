@@ -2,7 +2,7 @@ import sys
 from PyQt6.QtCore import QTimer
 from PyQt6.QtWidgets import QApplication
 
-from match_singleton import MatchSingleton
+from pojo.Match import MatchSingleton
 from process_message import process_message
 from websocket_manager import WebSocketManager
 from windows.MainWindow import MainWindow

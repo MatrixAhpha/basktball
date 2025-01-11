@@ -1,6 +1,7 @@
 from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import QDialog, QVBoxLayout, QLabel, QScrollArea, QWidget
-from match_singleton import MatchSingleton
+
+from pojo.Match import MatchSingleton
 
 
 class PopupWindow(QDialog):

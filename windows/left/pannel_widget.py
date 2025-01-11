@@ -2,6 +2,8 @@ from PyQt6.QtWidgets import QFrame, QVBoxLayout, QLabel
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QMouseEvent
 
+from pojo.Match import MatchSingleton
+
 
 class Panel(QFrame):
     def __init__(self, title, parent=None, url=None):
@@ -21,6 +23,5 @@ class Panel(QFrame):
 
     def mousePressEvent(self, event: QMouseEvent):
         if event.button() == Qt.MouseButton.LeftButton:
-            from match_singleton import MatchSingleton
             match = MatchSingleton.get_instance()
             match.window.websocket_manager.on_change(self.url)

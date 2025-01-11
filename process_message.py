@@ -1,7 +1,7 @@
 import json
 import re
 
-from match_singleton import MatchSingleton
+from pojo.Match import MatchSingleton
 from pojo.Statistics import Statistics
 
 

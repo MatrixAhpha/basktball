@@ -3,6 +3,19 @@ from PyQt6.QtWidgets import QLabel
 from pojo.Team_Statistics import Team_Statistics
 
 
+class MatchSingleton:
+    _instance = None
+
+    @staticmethod
+    def get_instance():
+        """
+        获取 Match 的单例实例
+        """
+        if MatchSingleton._instance is None:
+            MatchSingleton._instance = Match(None, None)
+        return MatchSingleton._instance
+
+
 class Match:
     """
     比赛类，包含主队和客队的名称、图标、比分、时间及技术统计。

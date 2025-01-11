@@ -1,7 +1,7 @@
 from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import QLabel, QWidget, QGridLayout
 
-from match_singleton import MatchSingleton
+from pojo.Match import MatchSingleton
 from windows.right.bottom.bottom_event_manager import bottomEventManager
 
 

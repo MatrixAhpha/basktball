@@ -2,7 +2,7 @@ from PyQt6.QtCore import QObject, pyqtSignal
 from PyQt6.QtWebSockets import QWebSocket
 from PyQt6.QtCore import QUrl
 
-from match_singleton import MatchSingleton
+from pojo.Match import MatchSingleton
 
 
 class WebSocketManager(QObject):

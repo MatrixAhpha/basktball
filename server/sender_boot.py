@@ -1,5 +1,4 @@
 import subprocess
-import os
 import time
 
 # 定义要启动的 sender.py 脚本及其参数
