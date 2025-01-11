@@ -1,7 +1,36 @@
 from PyQt6.QtCore import Qt, QTimer
-from PyQt6.QtWidgets import QLabel
+from PyQt6.QtWidgets import QLabel, QDialog, QVBoxLayout, QPushButton
 from match_singleton import MatchSingleton
 from PyQt6.QtCore import QObject, pyqtSignal
+
+from windows.right.top.popup_window import PopupWindow
+
+
+# 自定义 CourtLabel 类，继承 QLabel
+class CourtLabel(QLabel):
+    def __init__(self, court_name, parent=None):
+        super().__init__(parent)
+        self.name = court_name
+        self.popup = None  # 初始化弹窗属性
+
+    def mousePressEvent(self, event):
+        if event.button() == Qt.MouseButton.LeftButton:
+            self.show_popup()
+
+    def show_popup(self):
+        """
+        显示弹窗
+        """
+        if self.popup is None:  # 仅在弹窗未创建时创建
+            self.popup = PopupWindow(self.name)
+            self.popup.finished.connect(self.reset_popup)  # 监听弹窗关闭
+            self.popup.show()
+
+    def reset_popup(self):
+        """
+        重置弹窗状态
+        """
+        self.popup = None
 
 
 # 定义事件管理器类
@@ -21,8 +50,8 @@ class CourtEventManager(QObject):
 
 
 # 创建篮球场控件
-def create_court(parent, event_manager):
-    court = QLabel(parent)
+def create_court(parent, event_manager, court_name):
+    court = CourtLabel(court_name, parent)  # 使用自定义 CourtLabel 类
     court.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
     # 设置默认背景颜色和图片
