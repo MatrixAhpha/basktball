@@ -91,7 +91,7 @@ async def read_stream():
         else:
             current_time = str(data.iloc[i][0])
             next_time = str(data.iloc[i + 1][0])
-            await asyncio.sleep(diff(current_time, next_time) / 3)
+            await asyncio.sleep(diff(current_time, next_time) / 2)
             # 打印下一行内容
             await broadcast(to_json(str(data.iloc[i + 1]).strip()))
             sent_data_log.append(to_json(str(data.iloc[i + 1]).strip()))
