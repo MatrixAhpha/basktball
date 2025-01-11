@@ -10,6 +10,7 @@ class MainWindow(QMainWindow):
         self.setWindowTitle("PyQt 示例")
         self.setGeometry(100, 100, 1200, 700)
         self.event_managers = {}
+        self.websocket_manager = None
 
         # 创建主窗口布局
         main_splitter = QSplitter(Qt.Orientation.Horizontal)

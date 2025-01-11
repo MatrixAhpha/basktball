@@ -14,10 +14,11 @@ from windows.MainWindow import MainWindow
 if __name__ == "__main__":
     app = QApplication(sys.argv)
 
-    websocket_manager = WebSocketManager("ws://localhost:6789")
+    websocket_manager = WebSocketManager("ws://localhost:6789", "ws://localhost:6790")
     websocket_manager.connect()  # 启动 WebSocket 连接
 
     window = MainWindow()
+    window.websocket_manager = websocket_manager
     window.show()
 
     match = MatchSingleton.get_instance()
