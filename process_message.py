@@ -87,6 +87,7 @@ def process_message(message):
             match.update_teams(msg1, msg2)
             match.window.event_managers["main_court"].update.emit()
             match.window.event_managers["sub_court"].update.emit()
+            match.window.event_managers["bottom"].update.emit()
         elif re.match(r"^第[1-4]节$", time):
             match.set_quarter(time)
 
