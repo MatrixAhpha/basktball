@@ -53,9 +53,10 @@ def to_json(raw_data):
 
     # 保留前 4 个键值对
     limited_dict = dict(list(data_dict.items())[:4])
-
+    json_data = json.dumps(limited_dict, ensure_ascii=False, indent=4)
+    sent_data_log.append(json_data)
     # 转换为 JSON 格式
-    return json.dumps(limited_dict, ensure_ascii=False, indent=4)
+    return json_data
 
 
 async def broadcast(data_send):
@@ -94,7 +95,6 @@ async def read_stream():
             await asyncio.sleep(diff(current_time, next_time) / 2)
             # 打印下一行内容
             await broadcast(to_json(str(data.iloc[i + 1]).strip()))
-            sent_data_log.append(to_json(str(data.iloc[i + 1]).strip()))
 
         i += 1
 
