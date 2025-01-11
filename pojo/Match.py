@@ -1,3 +1,5 @@
+from PyQt6.QtWidgets import QLabel
+
 from pojo.Statistics import Statistics
 
 
@@ -50,3 +52,9 @@ class Match:
 
     def set_quarter(self, quarter):
         self.quarter = quarter
+
+    def get_icon(self, court):
+        if court == self.window.findChild(QLabel, "main_court"):
+            return self.home_team_icon
+        elif court == self.window.findChild(QLabel, "sub_court"):
+            return self.away_team_icon
