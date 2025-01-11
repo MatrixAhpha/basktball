@@ -4,8 +4,8 @@ import time
 
 # 定义要启动的 sender.py 脚本及其参数
 scripts = [
-    ("sender.py", "event_stream1.xlsx", "6789"),
-    ("sender.py", "event_stream2.xlsx", "6790")
+    ("server/sender.py", "server/event_stream2.xlsx", "6789"),
+    ("server/sender.py", "server/event_stream2.xlsx", "6790")
 ]
 
 processes = []
