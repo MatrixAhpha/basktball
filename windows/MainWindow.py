@@ -7,7 +7,7 @@ from windows.right.right_widget import create_right_splitter
 class MainWindow(QMainWindow):
     def __init__(self, urls):
         super().__init__()
-        self.setWindowTitle("PyQt 示例")
+        self.setWindowTitle("体育赛事直播可视化系统")
         self.setGeometry(100, 100, 1200, 700)
         self.event_managers = {}
         self.websocket_manager = None
